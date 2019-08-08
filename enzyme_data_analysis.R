@@ -151,7 +151,7 @@ e5$D<-e5$Slurry
 e5[e5$D==3, "D"]<-4
 
 #Check the data 
-ggplot(e5[e5$Outlier==0, ], aes(Time, Pcorr2))+geom_point(cex=6, pch=21, aes(fill=factor(D)))+
+ggplot(e5, aes(Time, Pcorr2))+geom_point(cex=6, pch=21, aes(fill=factor(D)))+
   facet_wrap(D~C_AP, scales="free")
 #Mark the outliers
 e5$Outlier<-c(0)
