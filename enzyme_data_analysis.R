@@ -462,9 +462,9 @@ e4 %>% filter(Outlier==0) %>% group_by(Time, C_AP2, D) %>%
   theme(legend.title = element_blank(),
         legend.position = c(0.05, 0.9))
 
-#Figure 2: Progress curves of MUB-P substrate degradation measured 14 days after the first assay. 
+#Figure 2: Progress curves of MUB-P substrate degradation measured on day 14. 
 #The figure is divided into six boxes representing six different initial concentrations (S0) 
-#of MUB-P substrate. Empty, grey and black symbols denote three different fresh soil - buffer 
+#of MUB-P substrate (denoted by the box headings). Empty, grey and black symbols denote three different fresh soil - buffer 
 #solution slurries. Solid lines represent the fit of integrated form of non-inhibited 
 #Michaelis-Menten equation of single enzyme - substrate pair (eq. 4), which corresponded best 
 #to measured data according to non-linear least square regression analysis using five different 
@@ -490,7 +490,7 @@ e4 %>% filter(Outlier==0) %>% group_by(Time, C_AP2, D) %>%
 
 #Figure 3: Residuals of the fit of integrated form of non-inhibited Michaelis-Menten equation 
 #depicted in Fig. 2. The figure is divided into six boxes representing six different initial 
-#concentrations (S0) of MUB-P substrate. Empty, grey and black symbols denote three different 
+#concentrations (S0) of MUB-P substrate (denoted by the box headings). Empty, grey and black symbols denote three different 
 #fresh soil - buffer solution slurries. Solid horizonal line highlight the value 
 #zero - i.e. absolute correspondence between the data and the equation fit. Symbols represent 
 #means and error bars their standard deviations. Note that boxes have different y-axis scales.
@@ -648,7 +648,7 @@ ggplot(Velocities, aes(C_AP, value))+geom_point(cex=6, pch=21, aes(fill = variab
 
 #Figure 4: Initial rate of MUB-P substrate decay (v0) at six different initial concentrations of MUB-P 
 #(S0). The figure is divided into three boxes representing three different fresh soil - buffer solution 
-#slurries. The initial reaction rate was calculated as a slope of increase of a reaction product in 
+#slurries (denoted by the box headings). The initial reaction rate was calculated as a slope of increase of a reaction product in 
 #time using linear regression with or without the intercept (I = 0 or I 'is not' 0) and time interval spanning 
 #either full range or the initial linear interval identified using analysis of residuals 
 #(see Material and Methods for details and Fig. S4). Initial reaction rates calculated by linear 
@@ -694,9 +694,9 @@ e5.2 %>% group_by(Time, C_AP2, D) %>%
   scale_colour_manual(values = c("grey80", "grey40", "black"), 
                       labels = c("1:100", "1:200", "1:400"))
 
-#Figure 5: Progress curves of MUB-P substrate degradation measured 21 days after the first assay. 
+#Figure 5: Progress curves of MUB-P substrate degradation measured on day 21. 
 #The figure is divided into six boxes representing six different initial concentrations (S0) of 
-#MUB-P substrate. Empty, grey and black symbols denote three different fresh soil - buffer solution 
+#MUB-P substrate (denoted by the box headings). Empty, grey and black symbols denote three different fresh soil - buffer solution 
 #slurries. Dashed lines represent the fit of integrated non-inhibited Michaelis-Menten equation of 
 #single enzyme - substrate pair (eq. 4).  Solid lines represent the fit of differential equation 
 #with two different enzyme classes - one following non-inhibited Michaelis-Menten kinetic and 
@@ -736,9 +736,9 @@ e3 %>% filter(Outlier==0) %>% group_by(Time, C_AP2, D) %>%
   theme(legend.title = element_blank(),
         legend.position = c(0.05, 0.9))
 
-#Figure A2: Progress curves of MUB-P substrate degradation measured 7 days after the first 
-#assay. The figure is divided into six boxes representing six different initial concentrations 
-#(S0) of MUB-P substrate. Empty, grey and black symbols denote three different fresh 
+#Figure A2: Progress curves of MUB-P substrate degradation measured on day 7. 
+#The figure is divided into six boxes representing six different initial concentrations 
+#(S0) of MUB-P substrate (denoted by the box headings). Empty, grey and black symbols denote three different fresh 
 #soil - buffer solution slurries. Solid lines represent the fit of integrated form of 
 #non-inhibited Michaelis-Menten equation (eq. 4 in the main text), which corresponded best to 
 #measured data according to non-linear least square regression analysis 
@@ -764,7 +764,7 @@ e3 %>% filter(Outlier==0) %>% group_by(Time, C_AP2, D) %>%
 
 #Figure A3: Residuals of the fit of integrated form of non-inhibited Michaelis-Menten equation 
 #depicted in Fig. A2. The figure is divided into six boxes representing six different initial 
-#concentrations (S0) of MUB-P substrate. Empty, grey and black symbols denote three different 
+#concentrations (S0) of MUB-P substrate (denoted by the box headings). Empty, grey and black symbols denote three different 
 #fresh soil - buffer solution slurries. Solid horizonal line highlight the value 
 #zero - i.e. absolute correspondence between the data and the equation fit. 
 #Symbols represent means and error bars their standard deviations. Note that boxes have 
@@ -793,7 +793,7 @@ ggplot(e4, aes(Time, Pcorr2))+geom_point(cex=6, pch=21)+
   ylab(expression(paste("Product (", mu, "mol ", L^{-1}, ")")))+
   xlab("Time (h)")
 
-#Figure A4: Progress curves of MUB-P substrate degradation measured 14 days after the first assay. 
+#Figure A4: Progress curves of MUB-P substrate degradation measured on day 14. 
 #The figure is divided into 12 boxes representing combination of six different initial concentrations 
 #(S0, upper labels of the boxes) of MUB-P substrate added to three different fresh soil - buffer 
 #solution slurries (lower labels of the boxes). Lines represent fits of different linear regressions.
@@ -840,9 +840,9 @@ e6.2 %>% group_by(Time, C_AP2, D) %>%
   scale_colour_manual(values = c("grey80", "grey40", "black"), 
                       labels = c("1:100", "1:200", "1:400"))
 
-#Figure A5: Progress curves of MUB-P substrate degradation measured 60 days after the first assay. 
+#Figure A5: Progress curves of MUB-P substrate degradation measured on day 60. 
 #The figure is divided into six boxes representing six different initial concentrations (S0) of 
-#MUB-P substrate. Empty, grey and black symbols denote three different fresh soil - buffer solution
+#MUB-P substrate (denoted by the box headings). Empty, grey and black symbols denote three different fresh soil - buffer solution
 #slurries. Dashed lines represent the fit of integrated non-inhibited Michaelis-Menten equation of 
 #single enzyme - substrate pair (eq. 4 in the main text). Solid lines represent the fit of 
 #differential equation with two different enzyme classes - one following non-inhibited 
@@ -850,6 +850,88 @@ e6.2 %>% group_by(Time, C_AP2, D) %>%
 #Different line colors denote three different fresh soil - buffer solution slurries, whose data has 
 #been fitted by respective equations separately. Symbols represent means and error bars their 
 #standard deviations. Note that boxes have different y-axis scales.
+
+#Fig. A6
+##Two enzymes - prediction of the best equation
+te_times<-seq(0, 20000, by = 5)
+
+P1<-as.data.frame(ode(twoe_CI, y = c(P = 0, S = unique(e5$C_AP)[1]), 
+                      parms = c(Vmax1 = as.numeric(e5d1_twoe$P[1]),
+                                Vmax2 = as.numeric(e5d1_twoe$P[2]),
+                                Km = as.numeric(e5d1_twoe$P[3]),
+                                Kic = as.numeric(e5d1_twoe$P[4])), times = te_times))
+P1$S<-unique(e5$C_AP)[1]
+
+for(i in unique(e5$C_AP)[-1]){
+  Px <- as.data.frame(ode(twoe_CI, y = c(P = 0, S = i), 
+                                    parms = c(Vmax1 = as.numeric(e5d1_twoe$P[1]),
+                                              Vmax2 = as.numeric(e5d1_twoe$P[2]),
+                                              Km = as.numeric(e5d1_twoe$P[3]),
+                                              Kic = as.numeric(e5d1_twoe$P[4])), times = te_times))
+  Px$S <- i
+  P1 <- rbind(P1, Px)
+}
+
+P1$Legend <- c("No substrate inhibition")
+
+##Two enzymes - prediction of the best equation with substrate inhibition term 
+##identified during the first enzyme assay
+twoe_CI2<-function(time, state, pars){
+  
+  with(as.list(c(state, pars)),{
+    
+    dP<-(Vmax1*S/(Km1 + S + S^2/Ks))+(Vmax2*S/(Km2*(1+P/Kic) + S))
+    dS<--(Vmax1*S/(Km1 + S + S^2/Ks))-(Vmax2*S/(Km2*(1+P/Kic) + S))
+    
+    return(list(c(dP, dS)))
+    
+  })
+}
+
+P2<-as.data.frame(ode(twoe_CI2, y = c(P = 0, S = unique(e5$C_AP)[1]), 
+                      parms = c(Vmax1 = as.numeric(e5d1_twoe$P[1]),
+                                Vmax2 = as.numeric(e5d1_twoe$P[2]),
+                                Km2 = as.numeric(e5d1_twoe$P[3]),
+                                Kic = as.numeric(e5d1_twoe$P[4]),
+                                Km1 = 17.92652, Ks = 215.5652), times = te_times))
+P2$S<-unique(e5$C_AP)[1]
+
+for(i in unique(e5$C_AP)[-1]){
+  Px <- as.data.frame(ode(twoe_CI2, y = c(P = 0, S = i), 
+                          parms = c(Vmax1 = as.numeric(e5d1_twoe$P[1]),
+                                    Vmax2 = as.numeric(e5d1_twoe$P[2]),
+                                    Km2 = as.numeric(e5d1_twoe$P[3]),
+                                    Kic = as.numeric(e5d1_twoe$P[4]),
+                                    Km1 = 17.92652, Ks = 215.5652), times = te_times))
+  Px$S <- i
+  P2 <- rbind(P2, Px)
+}
+
+P2$Legend <- c("Substrate inhibition")
+
+ggplot(Ps, aes(time/60/60, P))+
+  geom_line(aes(color=factor(S), linetype = Legend), lwd = 1.5, alpha=0.5)+
+  theme_min+xlab("Time (h)")+ylab(expression(paste("Product (", mu, "mol ", L^{-1}, ")")))+
+  theme(legend.title = element_blank(),
+        legend.text.align = 0)+
+  scale_color_manual(values = c("black", "grey30", "grey80", "dodgerblue4", "dodgerblue2",
+                                "cornflowerblue"),
+                        labels = expression(S==2~mu*mol~L^{-1},
+                                            S==10~mu*mol~L^{-1},
+                                            S==21~mu*mol~L^{-1}, 
+                                            S==52~mu*mol~L^{-1},
+                                            S==104~mu*mol~L^{-1},
+                                            S==207~mu*mol~L^{-1}))
+
+#Figure A6: Simulation of the progress curves for six different initial concentrations of 
+#MUB-P substrate (S0) measured at 1:100 soil - buffer slurry. Different S0 are denoted by 
+#different line colours. Solid lines represent the simulation of the differential equation 5, 
+#which assumes formation of the product by combined activity of two acid phosphatases pools, 
+#one of which being inhibited by the product. The parameters of eq. 5 used for this simulation 
+#are reported in Table A2 (i.e. for day 21). The dashed lines represent the fit of the same 
+#equation but assuming the substrate inhibition of the second acid phosphatase pool with 
+#inhibition constant Ki = 215.6 estimated for the acid phosphatase activity on day zero.
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 ############################################END OF SCRIPT#####################################
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
