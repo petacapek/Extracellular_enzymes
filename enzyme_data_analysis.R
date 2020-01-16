@@ -10,6 +10,7 @@ library(lamW)
 library(nls2)
 library(segmented)
 library(reshape)
+library(gridExtra)
 
 ##GGPLOT THEME
 theme_min<-theme(axis.text.x=element_text(vjust=0.2, size=18, colour="black"),
@@ -392,18 +393,6 @@ e6d4_twoec$Goodness$Gfit
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 #Main text
 #Fig. 1
-Theor<-data.frame(t=seq(0, 6, by=0.1))
-Theor$P<-10-10*lambertW0(10/10*exp((10-10*Theor$t)/10))
-Theor$Legend<-c("10")
-Theor<-rbind(Theor, data.frame(t=seq(0, 6, by=0.1),
-                               P=10-10*lambertW0(10/10*exp((10-5*Theor$t)/10)),
-                               Legend=c("5")))
-Theor<-rbind(Theor, data.frame(t=seq(0, 6, by=0.1),
-                               P=10-10*lambertW0(10/10*exp((10-1*Theor$t)/10)),
-                               Legend=c("1")))
-
-Theor$Legend<-factor(Theor$Legend, levels = c("10", "5", "1"))
-
 Theor2<-data.frame(t=seq(0, 6, by=0.1))
 Theor2$P<-10-5*lambertW0(10/5*exp((10-10*Theor2$t)/5))
 Theor2$Legend<-c("10")
@@ -411,22 +400,117 @@ Theor2<-rbind(Theor2, data.frame(t=seq(0, 6, by=0.1),
                                P=10-5*lambertW0(10/5*exp((10-5*Theor2$t)/5)),
                                Legend=c("5")))
 Theor2<-rbind(Theor2, data.frame(t=seq(0, 6, by=0.1),
-                               P=10-5*lambertW0(10/5*exp((10-1*Theor2$t)/5)),
+                               P=10-5*lambertW0(10/5*exp((10-0.5*Theor2$t)/5)),
                                Legend=c("1")))
 
 Theor2$Legend<-factor(Theor2$Legend, levels = c("10", "5", "1"))
 
-
-ggplot(Theor, aes(t, P))+geom_line(lwd=1, aes(linetype=Legend), colour="grey")+
-  geom_line(lwd=1, data=Theor2, aes(linetype=Legend), colour="black")+
+(TA<-ggplot(Theor2, aes(t, P))+geom_line(lwd=1, aes(linetype=Legend), colour="black")+
   ylim(0, 10)+theme_min+theme(legend.title = element_blank(),
-                              legend.position = c(0.13, 0.87),
+                              legend.position = c(0.7, 0.4),
                               legend.text.align = 0)+
   xlab("Time (h)")+scale_linetype_manual(values = c("solid", "dashed", "dotdash"),
                                          labels = expression(V[MAX]==10~mu*mol~L^{-1}~h^{-1},
                                                              V[MAX]==5~mu*mol~L^{-1}~h^{-1},
                                                              V[MAX]==1~mu*mol~L^{-1}~h^{-1}))+
-  ylab(expression(paste("Product (", mu, "mol ", L^{-1}, ")")))
+  ylab(expression(paste("Product (", mu, "mol ", L^{-1}, ")")))+
+  ggtitle("A)"))
+
+
+##Inhibition
+###Without inhibition
+WIout<-data.frame(time=seq(0, 6, by=0.1),
+           P=10-5*lambertW0(10/5*exp((10-1*Theor2$t)/5)),
+           Legend=c("WI"))
+
+###Substrate inhibition
+SI<-function(time, state, pars){
+  
+  with(as.list(c(state, pars)),{
+    
+    dP<-Vmax*(10-P)/(Km + (10-P) + (10-P)^2/Ki)
+    
+    return(list(c(dP)))
+    
+  })
+}
+
+SIout <- as.data.frame(ode(y=c(P=0), parms=c(Vmax=1, Km=5, Ki=5), 
+             SI, times=seq(0,6, by=0.1)))
+plot(SIout)
+
+SIout$Legend<-"SI"
+
+ggplot(SIout, aes(time, P)) + geom_point(cex=2) + stat_smooth(method=lm)
+
+###Noncompetitive
+NCI<-function(time, state, pars){
+  
+  with(as.list(c(state, pars)),{
+    
+    dP<-Vmax*(10-P)/(Km*(1+P/Kic) + (10-P)*(1+P/Kiu))
+    
+    return(list(c(dP)))
+    
+  })
+}
+
+NCIout <- as.data.frame(ode(y=c(P=0), parms=c(Vmax=1, Km=5, Kic=1, Kiu=1), 
+             NCI, times=seq(0,6, by=0.1)))
+plot(NCIout)
+
+NCIout$Legend<-"NCI"
+
+###Competitive
+CI<-function(time, state, pars){
+  
+  with(as.list(c(state, pars)),{
+    
+    dP<-Vmax*(10-P)/(Km*(1+P/Kic) + (10-P))
+    
+    return(list(c(dP)))
+    
+  })
+}
+
+CIout <- as.data.frame(ode(y=c(P=0), parms=c(Vmax=1, Km=5, Kic=1), 
+              CI, times=seq(0,6, by=0.1)))
+plot(CIout)
+
+CIout$Legend<-"CI"
+
+###Uncompetitive
+UCI<-function(time, state, pars){
+  
+  with(as.list(c(state, pars)),{
+    
+    dP<-Vmax*(10-P)/(Km + (10-P)*(1+P/Kiu))
+    
+    return(list(c(dP)))
+    
+  })
+}
+
+UCIout <- as.data.frame(ode(y=c(P=0), parms=c(Vmax=1, Km=5, Kiu=1), 
+              UCI, times=seq(0,6, by=0.1)))
+plot(UCIout)
+
+UCIout$Legend<-"UCI"
+
+Theor3<-rbind(WIout, SIout, NCIout, CIout, UCIout)
+
+(TB<-ggplot(Theor3, aes(time, P)) + geom_line(lwd=1, aes(linetype=Legend, colour=Legend)) +
+  theme_min + theme(legend.title = element_blank(),
+                   legend.position = c(0.2, 0.7)) +
+  xlab("Time (h)") + ylab(expression(paste("Product (", mu, "mol ", L^{-1}, ")")))+
+  ggtitle("B)") + 
+  scale_linetype_manual(values = c("solid", "solid", "dashed", "dashed", 
+                                   "dotdash"))+
+  scale_color_manual(values = c("black", "grey50", "grey50","black", "black")))
+
+grid.arrange(TA, TB, nrow=1)
+
+
 
 #Figure 1: Progress curves of enzymatic reaction following the non-inhibited Michaelis-Menten kinetic. 
 #The effect of maximum velocity constant (VMAX) and enzyme affinity to substrate (KM) is depicted by 
@@ -931,6 +1015,20 @@ ggplot(Ps, aes(time/60/60, P))+
 #are reported in Table A2 (i.e. for day 21). The dashed lines represent the fit of the same 
 #equation but assuming the substrate inhibition of the second acid phosphatase pool with 
 #inhibition constant Ki = 215.6 estimated for the acid phosphatase activity on day zero.
+
+###########################################For reviewers################################
+fdata<-data.frame(Time=c(0.05, 1, 0, 2),
+                  P= c(0, 6, 0, 8),
+                  Group=c("A", "A", "B", "B"))
+
+ggplot(fdata, aes(Time, P)) + geom_point(size=8, pch=21, aes(fill = Group),
+                                         show.legend = F)+
+  theme_min+theme(axis.text.y = element_blank())+
+  ylab("Product concentration")+
+  xlab("Time (hours)")+
+  stat_smooth(method = lm, aes(color=Group), show.legend = F)+
+  scale_x_continuous(limits=c(0,2), breaks=c(0,1,2))
+  
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 ############################################END OF SCRIPT#####################################
